@@ -28,6 +28,21 @@
                 .HasForeignKey(e => e.UserId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
+
+            appUser
+              .HasOne(u => u.Wallet)
+            .WithOne(w => w.User)
+            .HasForeignKey<Wallet>(w => w.UserId);
+
+            appUser
+               .HasOne(u => u.Image)
+             .WithOne(i => i.User)
+             .HasForeignKey<Image>(i => i.UserId);
+
+            appUser
+                .HasOne(u => u.Portfolio)
+                .WithOne(p => p.User)
+                .HasForeignKey<Portfolio>(p => p.UserId);
         }
     }
 }
