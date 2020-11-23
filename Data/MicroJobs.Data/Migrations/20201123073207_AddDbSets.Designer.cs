@@ -4,14 +4,16 @@ using MicroJobs.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MicroJobs.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201123073207_AddDbSets")]
+    partial class AddDbSets
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,8 +90,8 @@ namespace MicroJobs.Data.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ImageId")
-                        .HasColumnType("int");
+                    b.Property<string>("ImageId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -181,7 +183,10 @@ namespace MicroJobs.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PortfolioId")
+                    b.Property<string>("PortfolioId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PortfolioId1")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -193,7 +198,7 @@ namespace MicroJobs.Data.Migrations
 
                     b.HasIndex("JobId");
 
-                    b.HasIndex("PortfolioId");
+                    b.HasIndex("PortfolioId1");
 
                     b.HasIndex("UserId")
                         .IsUnique()
@@ -675,9 +680,7 @@ namespace MicroJobs.Data.Migrations
 
                     b.HasOne("MicroJobs.Data.Models.Portfolio", "Portfolio")
                         .WithMany("Images")
-                        .HasForeignKey("PortfolioId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("PortfolioId1");
 
                     b.HasOne("MicroJobs.Data.Models.ApplicationUser", "User")
                         .WithOne("Image")

@@ -12,7 +12,7 @@
 
         public virtual ApplicationUser User { get; set; }
 
-        public string PortfolioId { get; set; }
+        public int PortfolioId { get; set; }
 
         public virtual Portfolio Portfolio { get; set; }
     }

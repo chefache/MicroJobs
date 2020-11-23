@@ -6,7 +6,7 @@
     using MicroJobs.Data.Common.Models;
     using MicroJobs.Data.Models.Enums;
 
-    public class Job : BaseDeletableModel<string>
+    public class Job : BaseModel<string>
     {
         public Job()
         {

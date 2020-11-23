@@ -26,6 +26,30 @@
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<ApplicationRole> ApplicationRoles { get; set; }
+
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+        public DbSet<Image> Images { get; set; }
+
+        public DbSet<Job> Jobs { get; set; }
+
+        public DbSet<JobSkill> JobSkills { get; set; }
+
+        public DbSet<JobSubCategory> JobSubCategories { get; set; }
+
+        public DbSet<JobTown> JobTowns { get; set; }
+
+        public DbSet<Portfolio> Portfolios { get; set; }
+
+        public DbSet<Skill> Skills { get; set; }
+
+        public DbSet<Town> Towns { get; set; }
+
+        public DbSet<UserSkill> UserSkills { get; set; }
+
+        public DbSet<Wallet> Wallets { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

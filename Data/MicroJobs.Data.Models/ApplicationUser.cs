@@ -24,7 +24,7 @@ namespace MicroJobs.Data.Models
 
         public string Lastname { get; set; }
 
-        public string ImageId { get; set; }
+        public int ImageId { get; set; }
 
         public virtual Image Image { get; set; }
 
