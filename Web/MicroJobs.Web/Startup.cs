@@ -67,6 +67,7 @@
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IHomePageCountsService, HomePageCountsService>();
             services.AddTransient<IJobSubCateroriesService, JobSubCateroriesService>();
+            services.AddTransient<IJobsService, JobsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
