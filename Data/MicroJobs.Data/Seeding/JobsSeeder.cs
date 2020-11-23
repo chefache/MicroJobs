@@ -1,9 +1,10 @@
 ﻿namespace MicroJobs.Data.Seeding
 {
-    using MicroJobs.Data.Models;
     using System;
     using System.Linq;
     using System.Threading.Tasks;
+
+    using MicroJobs.Data.Models;
 
     public class JobsSeeder : ISeeder
     {

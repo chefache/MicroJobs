@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MicroJobs.Data.Migrations
 {
-    public partial class CreateDatabase : Migration
+    public partial class CreateDatabaseAndAddViews : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

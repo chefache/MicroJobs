@@ -5,7 +5,7 @@ namespace MicroJobs.Data.Models
     using System.Collections.Generic;
 
     using MicroJobs.Data.Common.Models;
-
+    using MicroJobs.Data.Models.Enums;
     using Microsoft.AspNetCore.Identity;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
@@ -27,8 +27,6 @@ namespace MicroJobs.Data.Models
         public int ImageId { get; set; }
 
         public virtual Image Image { get; set; }
-
-        public int TownId { get; set; }
 
         public virtual Town Town { get; set; }
 

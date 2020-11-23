@@ -11,7 +11,6 @@
         public Job()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.JobTowns = new HashSet<JobTown>();
             this.Images = new HashSet<Image>();
         }
 
@@ -37,6 +36,6 @@
 
         public virtual ApplicationUser User { get; set; }
 
-        public virtual ICollection<JobTown> JobTowns { get; set; }
+        public Town Town { get; set; }
     }
 }

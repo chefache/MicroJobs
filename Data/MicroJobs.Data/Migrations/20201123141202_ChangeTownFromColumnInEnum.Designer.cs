@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MicroJobs.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201123080924_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20201123141202_ChangeTownFromColumnInEnum")]
+    partial class ChangeTownFromColumnInEnum
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -131,7 +131,7 @@ namespace MicroJobs.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TownId")
+                    b.Property<int>("Town")
                         .HasColumnType("int");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -155,8 +155,6 @@ namespace MicroJobs.Data.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("TownId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -236,6 +234,9 @@ namespace MicroJobs.Data.Migrations
                     b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Town")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -311,42 +312,6 @@ namespace MicroJobs.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("JobSubCategories");
-                });
-
-            modelBuilder.Entity("MicroJobs.Data.Models.JobTown", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("JobId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("TownId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("JobId");
-
-                    b.HasIndex("TownId");
-
-                    b.ToTable("JobTowns");
                 });
 
             modelBuilder.Entity("MicroJobs.Data.Models.Portfolio", b =>
@@ -453,35 +418,6 @@ namespace MicroJobs.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Skills");
-                });
-
-            modelBuilder.Entity("MicroJobs.Data.Models.Town", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("Towns");
                 });
 
             modelBuilder.Entity("MicroJobs.Data.Models.UserSkill", b =>
@@ -658,17 +594,6 @@ namespace MicroJobs.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("MicroJobs.Data.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("MicroJobs.Data.Models.Town", "Town")
-                        .WithMany("Users")
-                        .HasForeignKey("TownId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Town");
-                });
-
             modelBuilder.Entity("MicroJobs.Data.Models.Image", b =>
                 {
                     b.HasOne("MicroJobs.Data.Models.Job", "Job")
@@ -724,23 +649,6 @@ namespace MicroJobs.Data.Migrations
                     b.Navigation("Job");
 
                     b.Navigation("Skill");
-                });
-
-            modelBuilder.Entity("MicroJobs.Data.Models.JobTown", b =>
-                {
-                    b.HasOne("MicroJobs.Data.Models.Job", "Job")
-                        .WithMany("JobTowns")
-                        .HasForeignKey("JobId");
-
-                    b.HasOne("MicroJobs.Data.Models.Town", "Town")
-                        .WithMany("JobTowns")
-                        .HasForeignKey("TownId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Job");
-
-                    b.Navigation("Town");
                 });
 
             modelBuilder.Entity("MicroJobs.Data.Models.Portfolio", b =>
@@ -851,8 +759,6 @@ namespace MicroJobs.Data.Migrations
             modelBuilder.Entity("MicroJobs.Data.Models.Job", b =>
                 {
                     b.Navigation("Images");
-
-                    b.Navigation("JobTowns");
                 });
 
             modelBuilder.Entity("MicroJobs.Data.Models.JobSubCategory", b =>
@@ -868,13 +774,6 @@ namespace MicroJobs.Data.Migrations
             modelBuilder.Entity("MicroJobs.Data.Models.Skill", b =>
                 {
                     b.Navigation("UserSkills");
-                });
-
-            modelBuilder.Entity("MicroJobs.Data.Models.Town", b =>
-                {
-                    b.Navigation("JobTowns");
-
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

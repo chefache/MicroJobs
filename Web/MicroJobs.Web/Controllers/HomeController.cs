@@ -2,21 +2,30 @@
 {
     using System.Diagnostics;
 
+    using MicroJobs.Services.Data;
     using MicroJobs.Web.ViewModels;
     using MicroJobs.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
+        private readonly IHomePageCountsService homePageCountsService;
+
+        public HomeController(IHomePageCountsService homePageCountsService)
+        {
+            this.homePageCountsService = homePageCountsService;
+        }
+
         public IActionResult Index()
         {
+            var counts = this.homePageCountsService.GetCounts();
+
             var viewModel = new IndexViewModel
             {
-                JobsCount = 0,
-                UsersCount = 0,
-                SubCategoriesCount = 0,
+                JobsCount = counts.JobsCount,
+                UsersCount = counts.UsersCount,
+                SubCategoriesCount = counts.SubCategoriesCount,
             };
-
             return this.View(viewModel);
         }
 

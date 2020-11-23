@@ -38,13 +38,9 @@
 
         public DbSet<JobSubCategory> JobSubCategories { get; set; }
 
-        public DbSet<JobTown> JobTowns { get; set; }
-
         public DbSet<Portfolio> Portfolios { get; set; }
 
         public DbSet<Skill> Skills { get; set; }
-
-        public DbSet<Town> Towns { get; set; }
 
         public DbSet<UserSkill> UserSkills { get; set; }
 
