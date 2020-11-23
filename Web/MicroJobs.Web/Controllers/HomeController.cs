@@ -3,14 +3,21 @@
     using System.Diagnostics;
 
     using MicroJobs.Web.ViewModels;
-
+    using MicroJobs.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
         public IActionResult Index()
         {
-            return this.View();
+            var viewModel = new IndexViewModel
+            {
+                JobsCount = 0,
+                UsersCount = 0,
+                SubCategoriesCount = 0,
+            };
+
+            return this.View(viewModel);
         }
 
         public IActionResult Privacy()

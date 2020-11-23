@@ -1,9 +1,17 @@
 ﻿@using MicroJobs.Common
+@model MicroJobs.Web.ViewModels.Home.IndexViewModel
 @{
     this.ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Добре дошли в @GlobalConstants.SystemName!</h1>
+    <div class="col-md-4 offset-4">
+        <p>Имаме:</p>
+        <ul class="list-group">
+            <li class="list-group-item bg-info">Категории: @Model.SubCategoriesCount</li>
+            <li class=" list-group-item bg-info">Потрбители: @Model.UsersCount</li>
+            <li class="list-group-item bg-info">Обяви за работа: @Model.JobsCount</li>
+        </ul>
+    </div>
 </div>
