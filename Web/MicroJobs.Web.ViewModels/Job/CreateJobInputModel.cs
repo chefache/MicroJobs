@@ -17,6 +17,12 @@
         [Display(Name = "Основна категория")]
         public JobMainCategory JobMainCategory { get; set; }
 
+        [Required]
+        [Display(Name = "Под-категория")]
+        public int JobSubCategoryId { get; set; }
+
+        public IEnumerable<KeyValuePair<string, string>> SubCategoryItems { get; set; }
+
         [Display(Name = "Град")]
         public Town Town { get; set; }
 
@@ -39,11 +45,5 @@
 
         [Display(Name = "Линк към снимка")]
         public string JobImageUrl { get; set; }
-
-        public IEnumerable<KeyValuePair<string, string>> SubCategoryItems { get; set; }
-
-        [Required]
-        [Display(Name = "Под-категория")]
-        public int JobSubCategoryId { get; set; }
     }
 }

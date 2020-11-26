@@ -4,7 +4,7 @@
 
     public class JobSkill : BaseDeletableModel<int>
     {
-        public string JobId { get; set; }
+        public int JobId { get; set; }
 
         public virtual Job Job { get; set; }
 

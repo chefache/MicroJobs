@@ -18,19 +18,25 @@
             dbContext.Jobs.Add(new Job
             {
                 Name = "Пренасяне на домашен багаж",
+                JobSubCategoryId = 1,
+                Description = "Имам нужда от товарен камион за превоз на багаж от Варна до София",
+                Town = Models.Enums.Town.Варна,
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddDays(3),
                 Reward = 125,
-                JobSubCategoryId = 1,
+                ImageUrl = "https://dido-emo.add.bg/images/16_1_b.jpg",
             });
 
             dbContext.Jobs.Add(new Job
             {
-                Name = "Превод на текст от Италиански",
-                StartDate = DateTime.UtcNow,
-                EndDate = DateTime.UtcNow.AddDays(10),
-                Reward = 240,
+                Name = "Превод на текст от Италиански на Български",
                 JobSubCategoryId = 2,
+                Description = "Имам нужда от опитен преводач от Италиански език за превод на 50 страници текст формат А4",
+                Town = Models.Enums.Town.Пловдив,
+                StartDate = DateTime.UtcNow,
+                EndDate = DateTime.UtcNow.AddDays(3),
+                Reward = 12.50M,
+                ImageUrl = "https://prevodachi.eu/wp-content/uploads/2018/12/prevod-kak-se-pravi-e1544385964394.jpg",
             });
 
             await dbContext.SaveChangesAsync();

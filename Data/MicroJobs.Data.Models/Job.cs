@@ -6,11 +6,10 @@
     using MicroJobs.Data.Common.Models;
     using MicroJobs.Data.Models.Enums;
 
-    public class Job : BaseModel<string>
+    public class Job : BaseModel<int>
     {
         public Job()
         {
-            this.Id = Guid.NewGuid().ToString();
             this.Images = new HashSet<Image>();
         }
 
@@ -25,6 +24,8 @@
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
+
+        public string ImageUrl { get; set; }
 
         public virtual ICollection<Image> Images { get; set; }
 

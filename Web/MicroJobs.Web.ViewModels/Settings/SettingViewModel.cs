@@ -1,9 +1,8 @@
 ﻿namespace MicroJobs.Web.ViewModels.Settings
 {
+    using AutoMapper;
     using MicroJobs.Data.Models;
     using MicroJobs.Services.Mapping;
-
-    using AutoMapper;
 
     public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
     {

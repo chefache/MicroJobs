@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\MicroJobs.Data.Common\MicroJobs.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\MicroJobs.Data.Models\MicroJobs.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\MicroJobs.Web.ViewModels\MicroJobs.Web.ViewModels.csproj" />
     <ProjectReference Include="..\MicroJobs.Services.Mapping\MicroJobs.Services.Mapping.csproj" />
   </ItemGroup>
 
