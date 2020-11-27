@@ -4,6 +4,7 @@
     using System.Collections.Generic;
 
     using MicroJobs.Data.Models.Enums;
+    using Microsoft.AspNetCore.Http;
 
     public class CreateJobViewModel
     {
@@ -21,7 +22,7 @@
 
         public DateTime EndDate { get; set; }
 
-        public string JobImageUrl { get; set; }
+        public IEnumerable<IFormFile> Images { get; set; }
 
         public IEnumerable<KeyValuePair<string, string>> SubCategoryItems { get; set; }
 

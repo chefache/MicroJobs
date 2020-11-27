@@ -25,8 +25,6 @@
 
         public DateTime? EndDate { get; set; }
 
-        public string ImageUrl { get; set; }
-
         public virtual ICollection<Image> Images { get; set; }
 
         public int JobSubCategoryId { get; set; }

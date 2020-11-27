@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using MicroJobs.Data.Models.Enums;
+    using Microsoft.AspNetCore.Http;
 
     public class CreateJobInputModel
     {
@@ -44,6 +45,6 @@
         public DateTime EndDate { get; set; }
 
         [Display(Name = "Линк към снимка")]
-        public string JobImageUrl { get; set; }
+        public IEnumerable<IFormFile> Images { get; set; }
     }
 }

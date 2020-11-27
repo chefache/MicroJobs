@@ -1,10 +1,9 @@
-﻿namespace MicroJobs.Data.Migrations
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+namespace MicroJobs.Data.Migrations
 {
-    using System;
-
-    using Microsoft.EntityFrameworkCore.Migrations;
-
-    public partial class CreateFirstStableStage : Migration
+    public partial class SetPortfolioIdInImageNullable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -33,7 +32,7 @@
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Lastname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageId = table.Column<int>(type: "int", nullable: false),
+                    ImageId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Town = table.Column<int>(type: "int", nullable: false),
                     WalletId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PortfolioId = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -281,7 +280,6 @@
                     Reward = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     JobSubCategoryId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Town = table.Column<int>(type: "int", nullable: false),
@@ -339,13 +337,12 @@
                 name: "Images",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     JobId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Extension = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RemoteImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PortfolioId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    PortfolioId = table.Column<int>(type: "int", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),

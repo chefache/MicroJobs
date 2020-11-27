@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MicroJobs.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201124072304_CreateFirstStableStage")]
-    partial class CreateFirstStableStage
+    [Migration("20201127155845_SetPortfolioIdInImageNullable")]
+    partial class SetPortfolioIdInImageNullable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -90,8 +90,8 @@ namespace MicroJobs.Data.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ImageId")
-                        .HasColumnType("int");
+                    b.Property<string>("ImageId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -161,10 +161,8 @@ namespace MicroJobs.Data.Migrations
 
             modelBuilder.Entity("MicroJobs.Data.Models.Image", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -184,7 +182,7 @@ namespace MicroJobs.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PortfolioId")
+                    b.Property<int?>("PortfolioId")
                         .HasColumnType("int");
 
                     b.Property<string>("RemoteImageUrl")
@@ -223,9 +221,6 @@ namespace MicroJobs.Data.Migrations
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("JobMainCategory")
                         .HasColumnType("int");
@@ -615,9 +610,7 @@ namespace MicroJobs.Data.Migrations
 
                     b.HasOne("MicroJobs.Data.Models.Portfolio", "Portfolio")
                         .WithMany("Images")
-                        .HasForeignKey("PortfolioId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("PortfolioId");
 
                     b.HasOne("MicroJobs.Data.Models.ApplicationUser", "User")
                         .WithOne("Image")

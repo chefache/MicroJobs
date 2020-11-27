@@ -7,7 +7,7 @@
 
 <h1>@this.ViewData["Title"]</h1>
 
-<form method="post" class="col-md-6 align-content-center">
+<form method="post" class="col-md-6 align-content-center" enctype="multipart/form-data">
 
     <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -66,9 +66,9 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="JobImageUrl"></label>
-        <input asp-for="JobImageUrl" class="form-control" />
-        <span asp-validation-for="JobImageUrl" class="text-danger"></span>
+        <label asp-for="Images"></label>
+        <input asp-for="Images" class="form-control" />
+        <span asp-validation-for="Images" class="text-danger"></span>
     </div>
 
     <input type="submit" class="btn-success" />

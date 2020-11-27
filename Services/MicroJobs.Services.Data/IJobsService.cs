@@ -8,8 +8,10 @@
 
     public interface IJobsService
     {
-        Task CreateAsync(CreateJobViewModel input, string userId);
+        Task CreateAsync(CreateJobInputModel input, string userId, string imagePath);
 
         IEnumerable<Т> GetAll<Т>(int page, int itemsPerPage = 12);
+
+        int GetCount();
     }
 }

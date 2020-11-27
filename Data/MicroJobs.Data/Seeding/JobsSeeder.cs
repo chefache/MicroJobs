@@ -24,7 +24,6 @@
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddDays(3),
                 Reward = 125,
-                ImageUrl = "https://dido-emo.add.bg/images/16_1_b.jpg",
             });
 
             dbContext.Jobs.Add(new Job
@@ -36,7 +35,6 @@
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddDays(3),
                 Reward = 12.50M,
-                ImageUrl = "https://prevodachi.eu/wp-content/uploads/2018/12/prevod-kak-se-pravi-e1544385964394.jpg",
             });
 
             await dbContext.SaveChangesAsync();
