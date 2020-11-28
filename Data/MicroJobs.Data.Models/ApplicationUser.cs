@@ -18,15 +18,12 @@ namespace MicroJobs.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.UserSkills = new HashSet<UserSkill>();
             this.Jobs = new HashSet<Job>();
+            this.Images = new HashSet<Image>();
         }
 
         public string FirstName { get; set; }
 
         public string Lastname { get; set; }
-
-        public string ImageId { get; set; }
-
-        public virtual Image Image { get; set; }
 
         public virtual Town Town { get; set; }
 
@@ -41,6 +38,8 @@ namespace MicroJobs.Data.Models
         public virtual ICollection<Job> Jobs { get; set; }
 
         public virtual ICollection<UserSkill> UserSkills { get; set; }
+
+        public virtual ICollection<Image> Images { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }

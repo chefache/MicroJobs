@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MicroJobs.Data.Migrations
 {
-    public partial class SetPortfolioIdInImageNullable : Migration
+    public partial class ChangeUserImageConnectionToOneToMany : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,7 +32,6 @@ namespace MicroJobs.Data.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Lastname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Town = table.Column<int>(type: "int", nullable: false),
                     WalletId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PortfolioId = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -468,9 +467,7 @@ namespace MicroJobs.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Images_UserId",
                 table: "Images",
-                column: "UserId",
-                unique: true,
-                filter: "[UserId] IS NOT NULL");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Jobs_JobSubCategoryId",

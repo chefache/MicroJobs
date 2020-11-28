@@ -88,9 +88,6 @@ namespace MicroJobs.Data.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -197,9 +194,7 @@ namespace MicroJobs.Data.Migrations
 
                     b.HasIndex("PortfolioId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Images");
                 });
@@ -611,8 +606,8 @@ namespace MicroJobs.Data.Migrations
                         .HasForeignKey("PortfolioId");
 
                     b.HasOne("MicroJobs.Data.Models.ApplicationUser", "User")
-                        .WithOne("Image")
-                        .HasForeignKey("MicroJobs.Data.Models.Image", "UserId");
+                        .WithMany("Images")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Job");
 
@@ -747,7 +742,7 @@ namespace MicroJobs.Data.Migrations
                 {
                     b.Navigation("Claims");
 
-                    b.Navigation("Image");
+                    b.Navigation("Images");
 
                     b.Navigation("Jobs");
 
