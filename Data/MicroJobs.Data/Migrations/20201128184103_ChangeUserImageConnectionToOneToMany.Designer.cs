@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MicroJobs.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201128160133_ChangeUserImageConnectionToOneToMany")]
+    [Migration("20201128184103_ChangeUserImageConnectionToOneToMany")]
     partial class ChangeUserImageConnectionToOneToMany
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
