@@ -79,7 +79,7 @@
             return this.View(viewModel);
         }
 
-        public IActionResult SingleJob( int id)
+        public IActionResult SingleJob(int id)
         {
             var job = this.jobsService.GetById<SingleJobViewModel>(id);
 
