@@ -13,7 +13,7 @@
         <div class="media col-md-3">
             <img src="@job.ImageUrl" width="150" class="mr-3 img-responsive">
             <div class="media-body">
-                <h5 class="mt-0">@job.Name</h5>
+                <h5 class="mt-0"><a asp-action="SingleJob"asp-route-id="@job.Id">@job.Name</a></h5>
                 @job.SubCategoryName
             </div>
         </div>

@@ -76,6 +76,15 @@
            return jobs;
         }
 
+        public T GetById<T>(int id)
+        {
+            var singleJob = this.jobsRepository.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .To<T>().FirstOrDefault();
+
+            return singleJob;
+        }
+
         public int GetCount()
         {
             return this.jobsRepository.All().Count();

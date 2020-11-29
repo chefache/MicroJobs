@@ -6,7 +6,5 @@
     public class JobListViewModel : JobsPagingViewModel
     {
         public IEnumerable<JobInListViewModel> Jobs { get; set; }
-
-
     }
 }

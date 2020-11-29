@@ -51,14 +51,9 @@
 
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString();
             var user = await this.userManager.GetUserAsync(this.User);
-
-          
-                await this.jobsService.CreateAsync(inputModel, user.Id, $"{this.environment.WebRootPath}/images");
-          
-              //  this.ModelState.AddModelError(string.Empty, ex.Message);
-                inputModel.SubCategoryItems = this.jobSubCateroriesService.GetAllAsKeyValuePairs();
-                return this.View(inputModel);
-            
+            await this.jobsService.CreateAsync(inputModel, user.Id, $"{this.environment.WebRootPath}/images");
+            inputModel.SubCategoryItems = this.jobSubCateroriesService.GetAllAsKeyValuePairs();
+            return this.View(inputModel);
 
             // TODO: Return user to page with created job
             return this.Redirect("/");
@@ -82,6 +77,13 @@
             };
 
             return this.View(viewModel);
+        }
+
+        public IActionResult SingleJob( int id)
+        {
+            var job = this.jobsService.GetById<SingleJobViewModel>(id);
+
+            return this.View(job);
         }
     }
 }
