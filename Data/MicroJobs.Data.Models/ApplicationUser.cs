@@ -19,6 +19,7 @@ namespace MicroJobs.Data.Models
             this.UserSkills = new HashSet<UserSkill>();
             this.Jobs = new HashSet<Job>();
             this.Images = new HashSet<Image>();
+            this.Votes = new HashSet<Vote>();
         }
 
         public string FirstName { get; set; }
@@ -56,5 +57,7 @@ namespace MicroJobs.Data.Models
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+
+        public virtual ICollection<Vote> Votes { get; set; }
     }
 }

@@ -11,6 +11,8 @@
 
     public class SingleJobViewModel : IMapFrom<Job>, IHaveCustomMappings
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public string SubCategoryName { get; set; }
@@ -21,19 +23,23 @@
 
         public decimal Reward { get; set; }
 
+        public double AverageVote { get; set; }
+
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
 
         public string ImageUrl { get; set; }
 
-        public string UserIdUserName { get; set; }
+        public string UserEmail { get; set; }
 
         public Town Town { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Job, SingleJobViewModel>()
+                .ForMember(x => x.AverageVote, opt =>
+                    opt.MapFrom(x => x.Votes.Count() == 0 ? 0 : x.Votes.Average(v => v.Value)))
                 .ForMember(x => x.ImageUrl, opt =>
                 opt.MapFrom(j =>
                     j.Images.FirstOrDefault().RemoteImageUrl != null ?

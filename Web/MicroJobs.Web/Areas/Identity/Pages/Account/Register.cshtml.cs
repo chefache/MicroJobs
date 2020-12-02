@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
 
 namespace MicroJobs.Web.Areas.Identity.Pages.Account
 {
@@ -61,6 +62,22 @@ namespace MicroJobs.Web.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            //[Required]
+            //[Display(Name = "Име")]
+            //public string FirstName { get; set; }
+
+            //[Required]
+            //[Display(Name = "Фамилия")]
+            //public string LastName { get; set; }
+
+            //[Display(Name = "Снимка")]
+            //public IEnumerable<IFormFile> Images { get; set; }
+
+            //[MinLength(5)]
+            //[MaxLength(200)]
+            //[Display(Name = "За мен")]
+            //public string Description { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -75,7 +92,8 @@ namespace MicroJobs.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email /*, FirstName = Input.FirstName, Lastname = Input.LastName,
+                Images = new List<Image>(), */ };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

@@ -42,6 +42,8 @@
 
         public DbSet<Skill> Skills { get; set; }
 
+        public DbSet<Vote> Votes { get; set; }
+
         public DbSet<UserSkill> UserSkills { get; set; }
 
         public DbSet<Wallet> Wallets { get; set; }
