@@ -16,29 +16,20 @@ namespace MicroJobs.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
-            this.UserSkills = new HashSet<UserSkill>();
             this.Jobs = new HashSet<Job>();
             this.Images = new HashSet<Image>();
             this.Votes = new HashSet<Vote>();
         }
 
-        public string FirstName { get; set; }
+        public int WorkerId { get; set; }
 
-        public string Lastname { get; set; }
-
-        public virtual Town Town { get; set; }
+        public virtual Worker Worker { get; set; }
 
         public string WalletId { get; set; }
 
         public virtual Wallet Wallet { get; set; }
 
-        public string PortfolioId { get; set; }
-
-        public virtual Portfolio Portfolio { get; set; }
-
         public virtual ICollection<Job> Jobs { get; set; }
-
-        public virtual ICollection<UserSkill> UserSkills { get; set; }
 
         public virtual ICollection<Image> Images { get; set; }
 

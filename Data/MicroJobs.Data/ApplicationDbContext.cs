@@ -34,17 +34,15 @@
 
         public DbSet<Job> Jobs { get; set; }
 
-        public DbSet<JobSkill> JobSkills { get; set; }
-
         public DbSet<JobSubCategory> JobSubCategories { get; set; }
 
-        public DbSet<Portfolio> Portfolios { get; set; }
+        public DbSet<Worker> Workers { get; set; }
 
         public DbSet<Skill> Skills { get; set; }
 
-        public DbSet<Vote> Votes { get; set; }
+        public DbSet<WorkerSkill> WorkerSkills { get; set; }
 
-        public DbSet<UserSkill> UserSkills { get; set; }
+        public DbSet<Vote> Votes { get; set; }
 
         public DbSet<Wallet> Wallets { get; set; }
 

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MicroJobs.Data.Migrations
 {
-    public partial class ChangeUserImageConnectionToOneToMany : Migration
+    public partial class AddWorker : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,11 +30,8 @@ namespace MicroJobs.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Lastname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Town = table.Column<int>(type: "int", nullable: false),
+                    WorkerId = table.Column<int>(type: "int", nullable: false),
                     WalletId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PortfolioId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -101,7 +98,6 @@ namespace MicroJobs.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -219,32 +215,6 @@ namespace MicroJobs.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Portfolios",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PortfolioUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ThumbneilUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Portfolios", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Portfolios_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Wallets",
                 columns: table => new
                 {
@@ -261,6 +231,32 @@ namespace MicroJobs.Data.Migrations
                     table.PrimaryKey("PK_Wallets", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Wallets_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Workers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Town = table.Column<int>(type: "int", nullable: false),
+                    AboutMe = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Workers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Workers_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -303,31 +299,27 @@ namespace MicroJobs.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserSkills",
+                name: "WorkerSkills",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    SkillId = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    WorkerId = table.Column<int>(type: "int", nullable: false),
+                    SkillId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserSkills", x => x.Id);
+                    table.PrimaryKey("PK_WorkerSkills", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserSkills_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        name: "FK_WorkerSkills_Skills_SkillId",
+                        column: x => x.SkillId,
+                        principalTable: "Skills",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UserSkills_Skills_SkillId",
-                        column: x => x.SkillId,
-                        principalTable: "Skills",
+                        name: "FK_WorkerSkills_Workers_WorkerId",
+                        column: x => x.WorkerId,
+                        principalTable: "Workers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -340,8 +332,9 @@ namespace MicroJobs.Data.Migrations
                     JobId = table.Column<int>(type: "int", nullable: false),
                     Extension = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RemoteImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WorkerId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WorkerId1 = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    PortfolioId = table.Column<int>(type: "int", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -363,39 +356,38 @@ namespace MicroJobs.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Images_Portfolios_PortfolioId",
-                        column: x => x.PortfolioId,
-                        principalTable: "Portfolios",
+                        name: "FK_Images_Workers_WorkerId1",
+                        column: x => x.WorkerId1,
+                        principalTable: "Workers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "JobSkills",
+                name: "Votes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     JobId = table.Column<int>(type: "int", nullable: false),
-                    SkillId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Value = table.Column<byte>(type: "tinyint", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_JobSkills", x => x.Id);
+                    table.PrimaryKey("PK_Votes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_JobSkills_Jobs_JobId",
-                        column: x => x.JobId,
-                        principalTable: "Jobs",
+                        name: "FK_Votes_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_JobSkills_Skills_SkillId",
-                        column: x => x.SkillId,
-                        principalTable: "Skills",
+                        name: "FK_Votes_Jobs_JobId",
+                        column: x => x.JobId,
+                        principalTable: "Jobs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -460,14 +452,14 @@ namespace MicroJobs.Data.Migrations
                 column: "JobId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Images_PortfolioId",
-                table: "Images",
-                column: "PortfolioId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Images_UserId",
                 table: "Images",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Images_WorkerId1",
+                table: "Images",
+                column: "WorkerId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Jobs_JobSubCategoryId",
@@ -480,36 +472,9 @@ namespace MicroJobs.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_JobSkills_IsDeleted",
-                table: "JobSkills",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_JobSkills_JobId",
-                table: "JobSkills",
-                column: "JobId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_JobSkills_SkillId",
-                table: "JobSkills",
-                column: "SkillId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_JobSubCategories_IsDeleted",
                 table: "JobSubCategories",
                 column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Portfolios_IsDeleted",
-                table: "Portfolios",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Portfolios_UserId",
-                table: "Portfolios",
-                column: "UserId",
-                unique: true,
-                filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Settings_IsDeleted",
@@ -522,18 +487,13 @@ namespace MicroJobs.Data.Migrations
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserSkills_IsDeleted",
-                table: "UserSkills",
-                column: "IsDeleted");
+                name: "IX_Votes_JobId",
+                table: "Votes",
+                column: "JobId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserSkills_SkillId",
-                table: "UserSkills",
-                column: "SkillId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserSkills_UserId",
-                table: "UserSkills",
+                name: "IX_Votes_UserId",
+                table: "Votes",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -547,6 +507,23 @@ namespace MicroJobs.Data.Migrations
                 column: "UserId",
                 unique: true,
                 filter: "[UserId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Workers_UserId",
+                table: "Workers",
+                column: "UserId",
+                unique: true,
+                filter: "[UserId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkerSkills_SkillId",
+                table: "WorkerSkills",
+                column: "SkillId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkerSkills_WorkerId",
+                table: "WorkerSkills",
+                column: "WorkerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -570,22 +547,19 @@ namespace MicroJobs.Data.Migrations
                 name: "Images");
 
             migrationBuilder.DropTable(
-                name: "JobSkills");
-
-            migrationBuilder.DropTable(
                 name: "Settings");
 
             migrationBuilder.DropTable(
-                name: "UserSkills");
+                name: "Votes");
 
             migrationBuilder.DropTable(
                 name: "Wallets");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "WorkerSkills");
 
             migrationBuilder.DropTable(
-                name: "Portfolios");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Jobs");
@@ -594,10 +568,13 @@ namespace MicroJobs.Data.Migrations
                 name: "Skills");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Workers");
 
             migrationBuilder.DropTable(
                 name: "JobSubCategories");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

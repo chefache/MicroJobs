@@ -8,11 +8,11 @@
     {
         public Skill()
         {
-            this.UserSkills = new HashSet<UserSkill>();
+            this.Workers = new HashSet<WorkerSkill>();
         }
 
         public string Name { get; set; }
 
-        public virtual ICollection<UserSkill> UserSkills { get; set; }
+        public virtual ICollection<WorkerSkill> Workers { get; set; }
     }
 }

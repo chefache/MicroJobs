@@ -35,9 +35,9 @@
             .HasForeignKey<Wallet>(w => w.UserId);
 
             appUser
-                .HasOne(u => u.Portfolio)
-                .WithOne(p => p.User)
-                .HasForeignKey<Portfolio>(p => p.UserId);
+                .HasOne(u => u.Worker)
+                .WithOne(w => w.User)
+                .HasForeignKey<Worker>(w => w.UserId);
         }
     }
 }
