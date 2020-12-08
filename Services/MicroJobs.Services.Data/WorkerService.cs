@@ -1,10 +1,12 @@
 ﻿namespace MicroJobs.Services.Data
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using MicroJobs.Data.Common.Repositories;
     using MicroJobs.Data.Models;
+    using MicroJobs.Services.Mapping;
     using MicroJobs.Web.ViewModels.Worker;
 
     public class WorkerService : IWorkerService
@@ -20,7 +22,7 @@
             this.skillsRepository = skillsRepository;
         }
 
-        public async Task CreateAsync(CreateWorkerInputModel input)
+        public async Task CreateAsync(CreateWorkerInputModel input, string userId)
         {
             var worker = new Worker
             {
@@ -29,6 +31,7 @@
                 PhoneNumber = input.PhoneNumber,
                 Town = input.Town,
                 AboutMe = input.AboutMe,
+                UserId = userId,
             };
 
             foreach (var skill in input.Skills)
@@ -51,6 +54,17 @@
 
             await this.workersRepository.AddAsync(worker);
             await this.workersRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<WorkerInListViewModel> GetAll(int page, int itemsPerPage = 12)
+        {
+            var workers = this.workersRepository.AllAsNoTracking()
+                 .OrderByDescending(x => x.Id)
+                 .Skip((page - 1) * itemsPerPage)
+                 .Take(itemsPerPage)
+                 .To<WorkerInListViewModel>()
+                 .ToList();
+            return workers;
         }
     }
 }

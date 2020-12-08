@@ -11,15 +11,18 @@
         private readonly IRepository<Job> jobsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly IDeletableEntityRepository<JobSubCategory> subcategoriesRepository;
+        private readonly IRepository<Worker> workersRepository;
 
         public HomePageCountsService(
             IRepository<Job> jobsRepository,
             IDeletableEntityRepository<ApplicationUser> usersRepository,
-            IDeletableEntityRepository<JobSubCategory> subcategoriesRepository)
+            IDeletableEntityRepository<JobSubCategory> subcategoriesRepository,
+            IRepository<Worker> workersRepository)
         {
             this.jobsRepository = jobsRepository;
             this.usersRepository = usersRepository;
             this.subcategoriesRepository = subcategoriesRepository;
+            this.workersRepository = workersRepository;
         }
 
         public HomePageCountsServiceViewModel GetCounts()
