@@ -1,11 +1,10 @@
-﻿using MicroJobs.Data.Common.Models;
-using MicroJobs.Data.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MicroJobs.Data.Models
+﻿namespace MicroJobs.Data.Models
 {
+    using System.Collections.Generic;
+
+    using MicroJobs.Data.Common.Models;
+    using MicroJobs.Data.Models.Enums;
+
     public class Worker : BaseModel<int>
     {
         public Worker()

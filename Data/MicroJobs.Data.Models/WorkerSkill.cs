@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MicroJobs.Data.Models
+﻿namespace MicroJobs.Data.Models
 {
     public class WorkerSkill
     {
@@ -15,5 +11,7 @@ namespace MicroJobs.Data.Models
         public int SkillId { get; set; }
 
         public Skill Skill { get; set; }
+
+        public string Description { get; set; }
     }
 }
