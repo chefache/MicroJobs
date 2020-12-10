@@ -56,15 +56,20 @@
             await this.workersRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<WorkerInListViewModel> GetAll(int page, int itemsPerPage = 12)
+        public IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12)
         {
             var workers = this.workersRepository.AllAsNoTracking()
                  .OrderByDescending(x => x.Id)
                  .Skip((page - 1) * itemsPerPage)
                  .Take(itemsPerPage)
-                 .To<WorkerInListViewModel>()
+                 .To<T>()
                  .ToList();
             return workers;
+        }
+
+        public int GetCount()
+        {
+            return this.workersRepository.All().Count();
         }
     }
 }

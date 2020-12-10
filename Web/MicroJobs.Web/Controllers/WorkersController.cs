@@ -42,12 +42,15 @@
             return this.Redirect("/");
         }
 
-        public IActionResult All(int id)
+        public IActionResult All(int id = 1)
         {
+            const int itemsPewrPage = 12;
             var viewModel = new WorkersListViewModel
             {
+                ItemsPerPage = itemsPewrPage,
                 PageNumber = id,
-                Workers = this.workerService.GetAll(id, 12),
+                WorkersCount = this.workerService.GetCount(),
+                Workers = this.workerService.GetAll<WorkerInListViewModel>(id, itemsPewrPage),
             };
             return this.View(viewModel);
         }
