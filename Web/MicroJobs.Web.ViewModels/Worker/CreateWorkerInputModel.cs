@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using MicroJobs.Data.Models.Enums;
+    using Microsoft.AspNetCore.Http;
 
     public class CreateWorkerInputModel
     {
@@ -32,5 +33,8 @@
         [Required]
         [Display(Name = "Добави умения")]
         public IEnumerable<WorkerSkillInputModel> Skills { get; set; }
+
+        [Display(Name = "Линк към снимка")]
+        public IEnumerable<IFormFile> Images { get; set; }
     }
 }

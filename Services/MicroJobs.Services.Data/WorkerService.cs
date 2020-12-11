@@ -1,6 +1,8 @@
 ﻿namespace MicroJobs.Services.Data
 {
+    using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -22,7 +24,7 @@
             this.skillsRepository = skillsRepository;
         }
 
-        public async Task CreateAsync(CreateWorkerInputModel input, string userId)
+        public async Task CreateAsync(CreateWorkerInputModel input, string userId, string imagePath)
         {
             var worker = new Worker
             {
@@ -50,6 +52,30 @@
                     Skill = currentSkill,
                     Description = skill.Description,
                 });
+            }
+
+            var allowedExtentions = new[] { "jpg", "png", "gif" };
+
+            Directory.CreateDirectory($"{imagePath}/workers/");
+
+            foreach (var image in input.Images)
+            {
+                var extension = Path.GetExtension(image.FileName).TrimStart('.');
+                if (!allowedExtentions.Any(x => extension.EndsWith(x)))
+                {
+                    throw new Exception($"Invalid image format {extension}");
+                }
+
+                var dbImage = new Image
+                {
+                    UserId = userId,
+                    Extension = extension,
+                };
+                worker.Images.Add(dbImage);
+
+                var phisicalPath = $"{imagePath}/workers/{dbImage.Id}.{extension}";
+                using Stream fileStream = new FileStream(phisicalPath, FileMode.Create);
+                await image.CopyToAsync(fileStream);
             }
 
             await this.workersRepository.AddAsync(worker);

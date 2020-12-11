@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    public class JobListViewModel : JobsPagingViewModel
+    public class JobListViewModel : PagingViewModel
     {
         public IEnumerable<JobInListViewModel> Jobs { get; set; }
     }

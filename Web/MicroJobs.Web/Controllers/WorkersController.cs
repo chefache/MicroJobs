@@ -5,6 +5,7 @@
     using MicroJobs.Services.Data;
     using MicroJobs.Web.ViewModels.Worker;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -12,13 +13,16 @@
     {
         private readonly IWorkerService workerService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IWebHostEnvironment environment;
 
         public WorkersController(
             IWorkerService workerService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IWebHostEnvironment environment)
         {
             this.workerService = workerService;
             this.userManager = userManager;
+            this.environment = environment;
         }
 
         [Authorize]
@@ -37,20 +41,25 @@
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
-            await this.workerService.CreateAsync(input, user.Id);
+            await this.workerService.CreateAsync(input, user.Id, $"{this.environment.WebRootPath}/images");
 
             return this.Redirect("/");
         }
 
         public IActionResult All(int id = 1)
         {
-            const int itemsPewrPage = 12;
+            if (id <= 0)
+            {
+                return this.NotFound();
+            }
+
+            const int itemsPerPage = 12;
             var viewModel = new WorkersListViewModel
             {
-                ItemsPerPage = itemsPewrPage,
+                ItemsPerPage = itemsPerPage,
                 PageNumber = id,
                 WorkersCount = this.workerService.GetCount(),
-                Workers = this.workerService.GetAll<WorkerInListViewModel>(id, itemsPewrPage),
+                Workers = this.workerService.GetAll<WorkerInListViewModel>(id, itemsPerPage),
             };
             return this.View(viewModel);
         }

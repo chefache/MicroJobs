@@ -7,7 +7,7 @@
 
     public interface IWorkerService
     {
-        Task CreateAsync(CreateWorkerInputModel input, string userId);
+        Task CreateAsync(CreateWorkerInputModel input, string userId, string imagePath);
 
         IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12);
 

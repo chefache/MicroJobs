@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class JobsPagingViewModel
+    public class PagingViewModel
     {
         public int PageNumber { get; set; }
 
@@ -17,6 +17,8 @@
         public int PagesCount => (int)Math.Ceiling((double)this.JobsCount / this.ItemsPerPage);
 
         public int JobsCount { get; set; }
+
+        public int WorkersCount { get; set; }
 
         public int ItemsPerPage { get; set; }
     }
