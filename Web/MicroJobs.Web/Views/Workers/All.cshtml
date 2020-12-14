@@ -1,7 +1,7 @@
 ﻿@using MicroJobs.Web.ViewModels.Worker
 @model WorkersListViewModel
 @{
-    this.ViewData["Title"] = "Всички работници, страница №"+ " " + Model.PageNumber;
+    this.ViewData["Title"] = "Всички работници, страница №" + " " + Model.PageNumber;
 }
 
 <h1>@this.ViewData["Title"]</h1>
@@ -15,7 +15,12 @@
             <img src="@worker.ImageUrl" width="150" class="mr-3 img-responsive">
             <div class="media-body">
                 <h5 class="mt-0"><a asp-action="SingleWorker" asp-route-id="@worker.Id">@worker.FirstName  @worker.LastName</a></h5>
-                 @worker.Town
+                @foreach (var item in worker.Skills)
+                {
+                    <div class="feature-wrap">
+                        <label for="">@item.SkillName</label>
+                    </div>
+                }
             </div>
         </div>
     }

@@ -13,17 +13,12 @@
                     <i class="far fa-calendar-alt"></i>
                     @*@Model.CreatedOn.ToShortDateString()*@
                 </li>
+
                 <li class="single-meta">
-                    <i class="fas fa-user"></i> by
-                    @*@if (string.IsNullOrWhiteSpace(Model.AddedByUserEmail))
-                    {
-                        <a href="@Model.OriginalUrl" target="_blank">recepti.gotvach.bg</a>
-                    }
-                    else
-                    {
-                        <span>@Model.AddedByUserEmail</span>
-                    }*@
+                    <i class="fas fa-user"></i>  Рейтинг на:
+                    @(Model.FirstName + " " + Model.LastName ?? "анонимен потребител")
                 </li>
+
                 <li class="single-meta">
                     <ul class="item-rating">
                         <li class="star-fill" data-vote="1"><i class="fas fa-star"></i></li>
@@ -46,36 +41,24 @@
                 <div class="feature-wrap">
                     <div class="media">
                         <div class="feature-icon">
-                            <i class="far fa-clock"></i>
+                            <i class="fas fa-phone-volume"></i>
                         </div>
                         <div class="media-body space-sm">
-                            <div class="feature-title">Телефон</div>
+                            <div class="feature-title">Телефон:</div>
                             <div class="feature-sub-title">@Model.PhoneNumber</div>
                         </div>
                     </div>
                 </div>
             </li>
+
             <li>
                 <div class="feature-wrap">
                     <div class="media">
                         <div class="feature-icon">
-                            <i class="fas fa-utensils"></i>
+                            <i class="fas fa-envelope-open-text"></i>
                         </div>
                         <div class="media-body space-sm">
-                            <div class="feature-title">Град</div>
-                            <div class="feature-sub-title">@Model.Town</div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="feature-wrap">
-                    <div class="media">
-                        <div class="feature-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="media-body space-sm">
-                            <div class="feature-title">Имейл</div>
+                            <div class="feature-title">Имейл:</div>
                             <div class="feature-sub-title">
                                 @Model.Email
                             </div>
@@ -83,35 +66,47 @@
                     </div>
                 </div>
             </li>
+
             <li>
                 <div class="feature-wrap">
                     <div class="media">
                         <div class="feature-icon">
-                            <i class="fa fa-list-ol"></i>
+                            <i class="fa fa-city"></i>
                         </div>
                         <div class="media-body space-sm">
-                            <div class="feature-title">CATEGORY RECIPES</div>
-                            @*<div class="feature-sub-title">@Model.CategoryRecipesCount</div*@>
+                            <div class="feature-title">Град:</div>
+                            <div class="feature-sub-title">@Model.Town</div>
                         </div>
                     </div>
                 </div>
             </li>
+
+
         </ul>
     </div>
+
+    @*<div class="making-elements-wrap">*@
+    <div class="row making-elements-wrap">
+        <div class="col-md-6 align-content-center">
+            <div class="ingridients-wrap">
+                <h3 class="item-title">
+                    <i class="fas fa-file-alt"></i>За мен:
+                </h3>
+                <div class="feature-sub-title">@Model.AboutMe</div>
+            </div>
+        </div>
+    </div>
+    @*</div>*@
+
     <div class="making-elements-wrap">
         <div class="row">
             <div class="col-md-6">
-                <p class="item-description">
-                    @Model.AboutMe
-                </p>
-            </div>
-            <div class="col-md-6">
                 <div class="ingridients-wrap">
-                    <h3 class="item-title"><i class="fas fa-list-ul"></i>Умения</h3>
+                    <h3 class="item-title"><i class="fas fa-list-ul"></i>Умения:</h3>
                     @foreach (var skill in Model.Skills)
                     {
                         <div class="feature-wrap">
-                            <label for="">@skill.SkillName @skill.Description</label>
+                            <label for="">@skill.SkillName:  @skill.Description</label>
                         </div>
                     }
                 </div>

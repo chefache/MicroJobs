@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MicroJobs.Data.Migrations
 {
-    public partial class AddPicsToWorkers : Migration
+    public partial class ImplementWorker : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -247,6 +247,7 @@ namespace MicroJobs.Data.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Town = table.Column<int>(type: "int", nullable: false),
                     AboutMe = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),

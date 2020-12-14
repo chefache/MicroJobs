@@ -23,7 +23,7 @@
         public string PhoneNumber { get; set; }
 
         [EmailAddress]
-        [Display(Name = "Работен @mail")]
+        [Display(Name = "Работен имейл")]
         public string Email { get; set; }
 
         [Required]

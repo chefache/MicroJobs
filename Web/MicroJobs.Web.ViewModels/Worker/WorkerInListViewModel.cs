@@ -4,6 +4,7 @@
     using MicroJobs.Data.Models;
     using MicroJobs.Data.Models.Enums;
     using MicroJobs.Services.Mapping;
+    using System.Collections.Generic;
     using System.Linq;
 
     public class WorkerInListViewModel : IMapFrom<Worker>, IHaveCustomMappings
@@ -21,6 +22,8 @@
         public string AboutMe { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public virtual IEnumerable<SkillsViewModel> Skills { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

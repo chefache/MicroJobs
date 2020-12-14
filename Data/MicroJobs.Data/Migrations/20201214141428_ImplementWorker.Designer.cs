@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MicroJobs.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201214120439_AddWorkerEmail")]
-    partial class AddWorkerEmail
+    [Migration("20201214141428_ImplementWorker")]
+    partial class ImplementWorker
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
