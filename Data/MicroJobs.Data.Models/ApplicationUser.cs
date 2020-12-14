@@ -17,7 +17,7 @@ namespace MicroJobs.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Jobs = new HashSet<Job>();
-            this.Images = new HashSet<Image>();
+           // this.Images = new HashSet<JobImage>();
             this.Votes = new HashSet<Vote>();
         }
 
@@ -31,7 +31,7 @@ namespace MicroJobs.Data.Models
 
         public virtual ICollection<Job> Jobs { get; set; }
 
-        public virtual ICollection<Image> Images { get; set; }
+      //  public virtual ICollection<JobImage> Images { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }

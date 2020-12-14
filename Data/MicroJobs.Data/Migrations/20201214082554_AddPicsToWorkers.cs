@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MicroJobs.Data.Migrations
 {
-    public partial class AddWorker : Migration
+    public partial class AddPicsToWorkers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -299,13 +299,38 @@ namespace MicroJobs.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "WorkerImages",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    WorkerId = table.Column<int>(type: "int", nullable: false),
+                    Extension = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RemoteImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkerImages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkerImages_Workers_WorkerId",
+                        column: x => x.WorkerId,
+                        principalTable: "Workers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "WorkerSkills",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     WorkerId = table.Column<int>(type: "int", nullable: false),
-                    SkillId = table.Column<int>(type: "int", nullable: false)
+                    SkillId = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -325,16 +350,13 @@ namespace MicroJobs.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Images",
+                name: "JobImages",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     JobId = table.Column<int>(type: "int", nullable: false),
                     Extension = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RemoteImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WorkerId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WorkerId1 = table.Column<int>(type: "int", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -342,23 +364,11 @@ namespace MicroJobs.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Images", x => x.Id);
+                    table.PrimaryKey("PK_JobImages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Images_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Images_Jobs_JobId",
+                        name: "FK_JobImages_Jobs_JobId",
                         column: x => x.JobId,
                         principalTable: "Jobs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Images_Workers_WorkerId1",
-                        column: x => x.WorkerId1,
-                        principalTable: "Workers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -442,24 +452,14 @@ namespace MicroJobs.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Images_IsDeleted",
-                table: "Images",
+                name: "IX_JobImages_IsDeleted",
+                table: "JobImages",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Images_JobId",
-                table: "Images",
+                name: "IX_JobImages_JobId",
+                table: "JobImages",
                 column: "JobId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Images_UserId",
-                table: "Images",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Images_WorkerId1",
-                table: "Images",
-                column: "WorkerId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Jobs_JobSubCategoryId",
@@ -509,6 +509,16 @@ namespace MicroJobs.Data.Migrations
                 filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_WorkerImages_IsDeleted",
+                table: "WorkerImages",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkerImages_WorkerId",
+                table: "WorkerImages",
+                column: "WorkerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Workers_UserId",
                 table: "Workers",
                 column: "UserId",
@@ -544,7 +554,7 @@ namespace MicroJobs.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Images");
+                name: "JobImages");
 
             migrationBuilder.DropTable(
                 name: "Settings");
@@ -554,6 +564,9 @@ namespace MicroJobs.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Wallets");
+
+            migrationBuilder.DropTable(
+                name: "WorkerImages");
 
             migrationBuilder.DropTable(
                 name: "WorkerSkills");

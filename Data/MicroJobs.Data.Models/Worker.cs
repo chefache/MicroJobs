@@ -10,6 +10,7 @@
         public Worker()
         {
             this.Skills = new HashSet<WorkerSkill>();
+            this.WorkerImages = new HashSet<WorkerImage>();
         }
 
         public string UserId { get; set; }
@@ -26,7 +27,7 @@
 
         public string AboutMe { get; set; }
 
-        public virtual ICollection<Image> Images { get; set; }
+        public virtual ICollection<WorkerImage> WorkerImages { get; set; }
 
         public virtual ICollection<WorkerSkill> Skills { get; set; }
     }

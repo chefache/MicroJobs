@@ -44,17 +44,17 @@
             foreach (var image in input.Images)
             {
                 var extension = Path.GetExtension(image.FileName).TrimStart('.');
-                if (!allowedExtentions.Any( x => extension.EndsWith(x)))
+                if (!allowedExtentions.Any(x => extension.EndsWith(x)))
                 {
                     throw new Exception($"Invalid image format {extension}");
                 }
 
-                var dbImage = new Image
+                var dbImage = new JobImage
                 {
-                    UserId = userId,
+                    // UserId = userId,
                     Extension = extension,
                 };
-                job.Images.Add(dbImage);
+                job.JobImages.Add(dbImage);
 
                 var phisicalPath = $"{imagePath}/jobs/{dbImage.Id}.{extension}";
                 using Stream fileStream = new FileStream(phisicalPath, FileMode.Create);

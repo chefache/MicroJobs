@@ -42,9 +42,9 @@
                     opt.MapFrom(x => x.Votes.Count() == 0 ? 0 : x.Votes.Average(v => v.Value)))
                 .ForMember(x => x.ImageUrl, opt =>
                 opt.MapFrom(j =>
-                    j.Images.FirstOrDefault().RemoteImageUrl != null ?
-                    j.Images.FirstOrDefault().RemoteImageUrl :
-                    "/images/jobs/" + j.Images.FirstOrDefault().Id + "." + j.Images.FirstOrDefault().Extension));
+                    j.JobImages.FirstOrDefault().RemoteImageUrl != null ?
+                    j.JobImages.FirstOrDefault().RemoteImageUrl :
+                    "/images/jobs/" + j.JobImages.FirstOrDefault().Id + "." + j.JobImages.FirstOrDefault().Extension));
         }
     }
 }

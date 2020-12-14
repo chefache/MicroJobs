@@ -27,9 +27,9 @@
             configuration.CreateMap<Worker, WorkerInListViewModel>()
                 .ForMember(x => x.ImageUrl, opt =>
                 opt.MapFrom(x =>
-                        x.Images.FirstOrDefault().RemoteImageUrl != null ?
-                        x.Images.FirstOrDefault().RemoteImageUrl :
-                        "/images/workers/" + x.Images.FirstOrDefault().Id + '.' + x.Images.FirstOrDefault().Extension));
+                        x.WorkerImages.FirstOrDefault().RemoteImageUrl != null ?
+                        x.WorkerImages.FirstOrDefault().RemoteImageUrl :
+                        "/images/workers/" + x.WorkerImages.FirstOrDefault().Id + '.' + x.WorkerImages.FirstOrDefault().Extension));
         }
     }
 }

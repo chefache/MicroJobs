@@ -6,11 +6,11 @@
 
         public int WorkerId { get; set; }
 
-        public Worker Worker { get; set; }
+        public virtual Worker Worker { get; set; }
 
         public int SkillId { get; set; }
 
-        public Skill Skill { get; set; }
+        public virtual Skill Skill { get; set; }
 
         public string Description { get; set; }
     }

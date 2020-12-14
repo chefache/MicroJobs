@@ -66,12 +66,12 @@
                     throw new Exception($"Invalid image format {extension}");
                 }
 
-                var dbImage = new Image
+                var dbImage = new WorkerImage
                 {
-                    UserId = userId,
+                  //  UserId = userId,
                     Extension = extension,
                 };
-                worker.Images.Add(dbImage);
+                worker.WorkerImages.Add(dbImage);
 
                 var phisicalPath = $"{imagePath}/workers/{dbImage.Id}.{extension}";
                 using Stream fileStream = new FileStream(phisicalPath, FileMode.Create);

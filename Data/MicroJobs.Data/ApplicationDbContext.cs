@@ -30,7 +30,9 @@
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
-        public DbSet<Image> Images { get; set; }
+        public DbSet<JobImage> JobImages { get; set; }
+
+        public DbSet<WorkerImage> WorkerImages { get; set; }
 
         public DbSet<Job> Jobs { get; set; }
 

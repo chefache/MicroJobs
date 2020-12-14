@@ -10,7 +10,7 @@
     {
         public Job()
         {
-            this.Images = new HashSet<Image>();
+            this.JobImages = new HashSet<JobImage>();
             this.Votes = new HashSet<Vote>();
         }
 
@@ -26,7 +26,7 @@
 
         public DateTime? EndDate { get; set; }
 
-        public virtual ICollection<Image> Images { get; set; }
+        public virtual ICollection<JobImage> JobImages { get; set; }
 
         public int JobSubCategoryId { get; set; }
 

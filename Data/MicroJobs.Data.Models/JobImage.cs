@@ -1,12 +1,12 @@
 ﻿namespace MicroJobs.Data.Models
 {
     using System;
-
+    using System.ComponentModel.DataAnnotations;
     using MicroJobs.Data.Common.Models;
 
-    public class Image : BaseDeletableModel<string>
+    public class JobImage : BaseDeletableModel<string>
     {
-        public Image()
+        public JobImage()
         {
             this.Id = Guid.NewGuid().ToString();
         }
@@ -19,12 +19,8 @@
 
         public string RemoteImageUrl { get; set; }
 
-        public string WorkerId { get; set; }
+        //public string UserId { get; set; }
 
-        public virtual Worker Worker { get; set; }
-
-        public string UserId { get; set; }
-
-        public virtual ApplicationUser User { get; set; }
+        //public virtual ApplicationUser User { get; set; }
     }
 }
