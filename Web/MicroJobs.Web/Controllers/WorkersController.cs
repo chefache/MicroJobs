@@ -63,5 +63,11 @@
             };
             return this.View(viewModel);
         }
+
+        public IActionResult SingleWorker(int id)
+        {
+            var worker = this.workerService.GetById<SingleWorkerViewModel>(id);
+            return this.View(worker);
+        }
     }
 }

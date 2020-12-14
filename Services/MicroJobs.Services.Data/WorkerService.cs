@@ -31,6 +31,7 @@
                 FirstName = input.FirstName,
                 LastName = input.LastName,
                 PhoneNumber = input.PhoneNumber,
+                Email = input.Email,
                 Town = input.Town,
                 AboutMe = input.AboutMe,
                 UserId = userId,
@@ -68,7 +69,7 @@
 
                 var dbImage = new WorkerImage
                 {
-                  //  UserId = userId,
+                    //  UserId = userId,
                     Extension = extension,
                 };
                 worker.WorkerImages.Add(dbImage);
@@ -91,6 +92,14 @@
                  .To<T>()
                  .ToList();
             return workers;
+        }
+
+        public T GetById<T>(int id)
+        {
+            var worker = this.workersRepository.AllAsNoTracking()
+                 .Where(x => x.Id == id)
+                 .To<T>().FirstOrDefault();
+            return worker;
         }
 
         public int GetCount()

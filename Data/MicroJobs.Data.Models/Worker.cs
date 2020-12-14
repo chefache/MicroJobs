@@ -23,6 +23,8 @@
 
         public string PhoneNumber { get; set; }
 
+        public string Email { get; set; }
+
         public Town Town { get; set; }
 
         public string AboutMe { get; set; }

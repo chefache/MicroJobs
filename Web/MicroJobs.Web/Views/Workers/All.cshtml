@@ -1,5 +1,5 @@
 ﻿@using MicroJobs.Web.ViewModels.Worker
-@model WorkersListViewModel 
+@model WorkersListViewModel
 @{
     this.ViewData["Title"] = "Всички работници, страница №"+ " " + Model.PageNumber;
 }
@@ -14,7 +14,7 @@
         <div class="media col-md-4">
             <img src="@worker.ImageUrl" width="150" class="mr-3 img-responsive">
             <div class="media-body">
-                <h5 class="mt-0"><a asp-action="SingleJob" asp-route-id="@worker.Id">@worker.FirstName</a></h5>
+                <h5 class="mt-0"><a asp-action="SingleWorker" asp-route-id="@worker.Id">@worker.FirstName  @worker.LastName</a></h5>
                  @worker.Town
             </div>
         </div>

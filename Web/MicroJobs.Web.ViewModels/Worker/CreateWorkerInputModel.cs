@@ -22,6 +22,10 @@
         [Display(Name = "Телефон")]
         public string PhoneNumber { get; set; }
 
+        [EmailAddress]
+        [Display(Name = "Работен @mail")]
+        public string Email { get; set; }
+
         [Required]
         [Display(Name = "Град")]
         public Town Town { get; set; }
