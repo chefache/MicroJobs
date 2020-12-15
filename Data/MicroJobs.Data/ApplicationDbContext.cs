@@ -44,7 +44,9 @@
 
         public DbSet<WorkerSkill> WorkerSkills { get; set; }
 
-        public DbSet<Vote> Votes { get; set; }
+        public DbSet<JobVote> JobVotes { get; set; }
+
+        public DbSet<WorkerVote> WorkerVotes { get; set; }
 
         public DbSet<Wallet> Wallets { get; set; }
 

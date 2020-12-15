@@ -12,9 +12,9 @@
     [Route("api/[Controller]")]
     public class VotesController : BaseController
     {
-        private readonly IVoteService voteService;
+        private readonly IJobVoteService voteService;
 
-        public VotesController( IVoteService voteService)
+        public VotesController( IJobVoteService voteService)
         {
             this.voteService = voteService;
         }

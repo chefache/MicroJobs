@@ -1,6 +1,9 @@
-﻿@model MicroJobs.Web.ViewModels.Worker.SingleWorkerViewModel
+﻿@using System
+@using System.Globalization
+@using System.Threading
+@model MicroJobs.Web.ViewModels.Worker.SingleWorkerViewModel
 @{
-    this.ViewData["Title"] = Model.FirstName + " " +  Model.LastName;
+    this.ViewData["Title"] = Model.FirstName + " " + Model.LastName;
 }
 
 <div class="single-recipe-layout1">
@@ -9,10 +12,6 @@
     <div class="row mb-4">
         <div class="col-xl-9 col-12">
             <ul class="entry-meta">
-                <li class="single-meta">
-                    <i class="far fa-calendar-alt"></i>
-                    @*@Model.CreatedOn.ToShortDateString()*@
-                </li>
 
                 <li class="single-meta">
                     <i class="fas fa-user"></i>  Рейтинг на:
@@ -21,12 +20,52 @@
 
                 <li class="single-meta">
                     <ul class="item-rating">
-                        <li class="star-fill" data-vote="1"><i class="fas fa-star"></i></li>
-                        <li class="star-fill" data-vote="2"><i class="fas fa-star"></i></li>
-                        <li class="star-fill" data-vote="3"><i class="fas fa-star"></i></li>
-                        <li class="star-fill" data-vote="4"><i class="fas fa-star"></i></li>
-                        <li class="star-fill" data-vote="5"><i class="fas fa-star"></i></li>
-                        @*<li><span id="averageVoteValue">@Model.AverageVote.ToString("0.0")</span><span> / 5</span> </li>*@
+                        @if (Model.WorkerVoteAverageValue < 1.5)
+                        {
+                            <li class="star-fill" data-vote="1"><i class="fas fa-star"></i></li>
+                            <li data-vote="2"><i class="fas fa-star"></i></li>
+                            <li data-vote="3"><i class="fas fa-star"></i></li>
+                            <li data-vote="4"><i class="fas fa-star"></i></li>
+                            <li data-vote="5"><i class="fas fa-star"></i></li>
+                        }
+                        @if (Model.WorkerVoteAverageValue >= 1.5 && Model.WorkerVoteAverageValue <= 2.5)
+                        {
+                            <li class="star-fill" data-vote="1"><i class="fas fa-star"></i></li>
+                            <li class="star-fill" data-vote="2"><i class="fas fa-star"></i></li>
+                            <li data-vote="3"><i class="fas fa-star"></i></li>
+                            <li data-vote="4"><i class="fas fa-star"></i></li>
+                            <li data-vote="5"><i class="fas fa-star"></i></li>
+                        }
+                        @if (Model.WorkerVoteAverageValue > 2.5 && Model.WorkerVoteAverageValue <= 3.5)
+                        {
+                            <li class="star-fill" data-vote="1"><i class="fas fa-star"></i></li>
+                            <li class="star-fill" data-vote="2"><i class="fas fa-star"></i></li>
+                            <li class="star-fill" data-vote="3"><i class="fas fa-star"></i></li>
+                            <li data-vote="4"><i class="fas fa-star"></i></li>
+                            <li data-vote="5"><i class="fas fa-star"></i></li>
+                        }
+                        @if (Model.WorkerVoteAverageValue > 3.5 && Model.WorkerVoteAverageValue <= 4.5)
+                        {
+                            <li class="star-fill" data-vote="1"><i class="fas fa-star"></i></li>
+                            <li class="star-fill" data-vote="2"><i class="fas fa-star"></i></li>
+                            <li class="star-fill" data-vote="3"><i class="fas fa-star"></i></li>
+                            <li class="star-fill" data-vote="4"><i class="fas fa-star"></i></li>
+                            <li data-vote="5"><i class="fas fa-star"></i></li>
+                        }
+                        @if (Model.WorkerVoteAverageValue >= 4.5)
+                        {
+                            <li class="star-fill" data-vote="1"><i class="fas fa-star"></i></li>
+                            <li class="star-fill" data-vote="2"><i class="fas fa-star"></i></li>
+                            <li class="star-fill" data-vote="3"><i class="fas fa-star"></i></li>
+                            <li class="star-fill" data-vote="4"><i class="fas fa-star"></i></li>
+                            <li class="star-fill" data-vote="5"><i class="fas fa-star"></i></li>
+                        }
+                        @*<li class="star-fill" data-vote="1"><i class="fas fa-star"></i></li>
+        <li class="star-fill" data-vote="2"><i class="fas fa-star"></i></li>
+        <li class="star-fill" data-vote="3"><i class="fas fa-star"></i></li>
+        <li class="star-fill" data-vote="4"><i class="fas fa-star"></i></li>
+        <li class="star-fill" data-vote="5"><i class="fas fa-star"></i></li>*@
+                        <li><span id="averageVoteValue">@Model.WorkerVoteAverageValue.ToString("0.0")</span><span> / 5</span> </li>
                     </ul>
                 </li>
             </ul>
@@ -85,7 +124,6 @@
         </ul>
     </div>
 
-    @*<div class="making-elements-wrap">*@
     <div class="row making-elements-wrap">
         <div class="col-md-6 align-content-center">
             <div class="ingridients-wrap">
@@ -96,7 +134,6 @@
             </div>
         </div>
     </div>
-    @*</div>*@
 
     <div class="making-elements-wrap">
         <div class="row">
@@ -114,18 +151,19 @@
         </div>
     </div>
 </div>
-@*<form method="post" id="antiForgeryForm"></form>
+
+<form method="post" id="antiForgeryForm"></form>
 @section Scripts {
     <script>
         $("li[data-vote]").each(function (el) {
             $(this).click(function () {
                 var value = $(this).attr("data-vote");
-                var recipeId = @Model.Id;
+                var workerId = @Model.Id;
                 var antiForgeryToken = $('#antiForgeryForm input[name=__RequestVerificationToken]').val();
-                var data = { recipeId: recipeId, value: value };
+                var data = { workerId: workerId, value: value };
                 $.ajax({
                     type: "POST",
-                    url: "/api/Votes",
+                    url: "/api/WorkersVote",
                     data: JSON.stringify(data),
                     headers: {
                         'X-CSRF-TOKEN': antiForgeryToken
@@ -138,4 +176,4 @@
             })
         });
     </script>
-}*@
+}

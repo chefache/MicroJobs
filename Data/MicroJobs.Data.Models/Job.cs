@@ -11,7 +11,7 @@
         public Job()
         {
             this.JobImages = new HashSet<JobImage>();
-            this.Votes = new HashSet<Vote>();
+            this.Votes = new HashSet<JobVote>();
         }
 
         public string Name { get; set; }
@@ -38,6 +38,6 @@
 
         public Town Town { get; set; }
 
-        public virtual ICollection<Vote> Votes { get; set; }
+        public virtual ICollection<JobVote> Votes { get; set; }
     }
 }

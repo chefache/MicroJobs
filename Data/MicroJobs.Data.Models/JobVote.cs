@@ -2,7 +2,7 @@
 {
     using MicroJobs.Data.Common.Models;
 
-    public class Vote : BaseModel<int>
+    public class JobVote : BaseModel<int>
     {
         public int JobId { get; set; }
 

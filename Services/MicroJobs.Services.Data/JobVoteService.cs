@@ -7,11 +7,11 @@
     using MicroJobs.Data.Common.Repositories;
     using MicroJobs.Data.Models;
 
-    public class VoteService : IVoteService
+    public class JobVoteService : IJobVoteService
     {
-        private readonly IRepository<Vote> votesRepository;
+        private readonly IRepository<JobVote> votesRepository;
 
-        public VoteService(IRepository<Vote> votesRepository)
+        public JobVoteService(IRepository<JobVote> votesRepository)
         {
             this.votesRepository = votesRepository;
         }
@@ -33,7 +33,7 @@
 
             if (vote == null)
             {
-                vote = new Vote
+                vote = new JobVote
                 {
                     JobId = jobId,
                     UserId = userId,

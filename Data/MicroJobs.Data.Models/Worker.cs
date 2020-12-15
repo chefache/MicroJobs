@@ -11,6 +11,7 @@
         {
             this.Skills = new HashSet<WorkerSkill>();
             this.WorkerImages = new HashSet<WorkerImage>();
+            this.WorkerVotes = new HashSet<WorkerVote>();
         }
 
         public string UserId { get; set; }
@@ -32,5 +33,7 @@
         public virtual ICollection<WorkerImage> WorkerImages { get; set; }
 
         public virtual ICollection<WorkerSkill> Skills { get; set; }
+
+        public virtual ICollection<WorkerVote> WorkerVotes { get; set; }
     }
 }

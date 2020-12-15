@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
 
-    public interface IVoteService
+    public interface IJobVoteService
     {
         Task SetVoteAsync(int jobId, string userId, byte value);
 

@@ -17,8 +17,8 @@ namespace MicroJobs.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Jobs = new HashSet<Job>();
-           // this.Images = new HashSet<JobImage>();
-            this.Votes = new HashSet<Vote>();
+            this.JobVotes = new HashSet<JobVote>();
+            this.WorkerVotes = new HashSet<WorkerVote>();
         }
 
         public int WorkerId { get; set; }
@@ -30,8 +30,6 @@ namespace MicroJobs.Data.Models
         public virtual Wallet Wallet { get; set; }
 
         public virtual ICollection<Job> Jobs { get; set; }
-
-      //  public virtual ICollection<JobImage> Images { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }
@@ -49,6 +47,8 @@ namespace MicroJobs.Data.Models
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
-        public virtual ICollection<Vote> Votes { get; set; }
+        public virtual ICollection<JobVote> JobVotes { get; set; }
+
+        public virtual ICollection<WorkerVote> WorkerVotes { get; set; }
     }
 }
