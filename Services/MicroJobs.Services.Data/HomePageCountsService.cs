@@ -32,6 +32,7 @@
                 JobsCount = this.jobsRepository.All().Count(),
                 UsersCount = this.usersRepository.All().Count(),
                 SubCategoriesCount = this.subcategoriesRepository.All().Count(),
+                WorkersCount = this.workersRepository.All().Count(),
             };
 
             return data;

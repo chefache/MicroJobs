@@ -25,6 +25,7 @@
                 JobsCount = counts.JobsCount,
                 UsersCount = counts.UsersCount,
                 SubCategoriesCount = counts.SubCategoriesCount,
+                WorkersCount = counts.WorkersCount,
             };
             return this.View(viewModel);
         }

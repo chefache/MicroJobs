@@ -5,13 +5,22 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Добре дошли в @GlobalConstants.SystemName!</h1>
+
     <div class="col-md-4 offset-4">
         <p>Имаме:</p>
         <ul class="list-group">
-            <li class="list-group-item bg-info">Категории: @Model.SubCategoriesCount</li>
-            <li class=" list-group-item bg-info">Потрбители: @Model.UsersCount</li>
-            <li class="list-group-item bg-info">Обяви за работа: @Model.JobsCount</li>
+            <div class="">
+                <li class="list-group-item bg-info">Категории: @Model.SubCategoriesCount</li>
+            </div>
+            <div class="">
+                <li class=" list-group-item bg-info">Потрбители: @Model.UsersCount</li>
+            </div>
+            <div class="">
+                <li class="list-group-item bg-info">Обяви за работа: @Model.JobsCount</li>
+            </div>
+            <div class="">
+                <li class="list-group-item bg-info">Работници: @Model.WorkersCount</li>
+            </div>
         </ul>
     </div>
 </div>

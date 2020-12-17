@@ -11,5 +11,7 @@
         public int UsersCount { get; set; }
 
         public int SubCategoriesCount { get; set; }
+
+        public int WorkersCount { get; set; }
     }
 }

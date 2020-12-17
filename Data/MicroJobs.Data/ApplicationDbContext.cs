@@ -96,6 +96,16 @@
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+            builder.Entity<Job>()
+                .HasMany(x => x.JobImages)
+                .WithOne(x => x.Job)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Job>()
+                .HasMany(x => x.Votes)
+                .WithOne(x => x.Job)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)

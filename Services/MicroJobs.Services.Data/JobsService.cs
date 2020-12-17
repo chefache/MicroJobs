@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using MicroJobs.Data.Common.Repositories;
@@ -11,15 +12,22 @@
     using MicroJobs.Services.Data.Models;
     using MicroJobs.Services.Mapping;
     using MicroJobs.Web.ViewModels.Job;
+    using Microsoft.AspNetCore.Identity;
 
     public class JobsService : IJobsService
     {
         private readonly IRepository<Job> jobsRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public JobsService(
-            IRepository<Job> jobsRepository)
+            IRepository<Job> jobsRepository,
+            IDeletableEntityRepository<ApplicationUser> userRepository,
+            UserManager<ApplicationUser> userManager)
         {
             this.jobsRepository = jobsRepository;
+            this.userRepository = userRepository;
+            this.userManager = userManager;
         }
 
         public async Task CreateAsync(CreateJobInputModel input, string userId, string imagePath)
@@ -65,6 +73,14 @@
             await this.jobsRepository.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            var job = this.jobsRepository.All()
+                .FirstOrDefault(x => x.Id == id);
+            this.jobsRepository.Delete(job);
+            await this.jobsRepository.SaveChangesAsync();
+        }
+
         public IEnumerable<Т> GetAll<Т>(int page, int itemsPerPage = 12)
         {
            var jobs = this.jobsRepository.AllAsNoTracking()
@@ -74,6 +90,19 @@
                 .ToList();
 
            return jobs;
+        }
+
+        public IEnumerable<T> GetAllMyWorks<T>(int page, string userId, int itemsPerPage = 12)
+        {
+
+            var jobs = this.jobsRepository.AllAsNoTracking()
+               .OrderByDescending(x => x.Id)
+               .Where(x => x.User.Id == userId)
+               .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+               .To<T>()
+               .ToList();
+
+            return jobs;
         }
 
         public T GetById<T>(int id)
@@ -88,6 +117,22 @@
         public int GetCount()
         {
             return this.jobsRepository.All().Count();
+        }
+
+        public async Task UpdateAsync(int id, EditJobInputModel input)
+        {
+            var job = this.jobsRepository
+                .All()
+                .FirstOrDefault(x => x.Id == id);
+
+            job.Name = input.Name;
+            job.Description = input.Description;
+            job.StartDate = input.StartDate;
+            job.EndDate = input.EndDate;
+            job.Town = input.Town;
+            job.Reward = input.Reward;
+
+            await this.jobsRepository.SaveChangesAsync();
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿namespace MicroJobs.Web.Controllers
 {
     using System;
+    using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using MicroJobs.Common;
     using MicroJobs.Data.Models;
     using MicroJobs.Services.Data;
     using MicroJobs.Services.Data.Models;
@@ -29,6 +31,31 @@
             this.jobsService = jobsService;
             this.userManager = userManager;
             this.environment = environment;
+        }
+
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var inputModel = this.jobsService.GetById<EditJobInputModel>(id);
+            return this.View(inputModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EditJobInputModel job)
+        {
+            // var user = await this.userManager.GetUserAsync(this.User);
+
+            // if (user.Jobs.Any(x => x.Id == job.Id))
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.View();
+            }
+
+            await this.jobsService.UpdateAsync(id, job);
+
+            return this.RedirectToAction(nameof(this.SingleJob), new { id });
         }
 
         [Authorize]
@@ -79,11 +106,40 @@
             return this.View(viewModel);
         }
 
+        public IActionResult AllMy(int id = 1)
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString();
+
+            if (id <= 0)
+            {
+                return this.NotFound();
+            }
+
+            const int itemsPerPage = 12;
+
+            var viewModel = new JobListViewModel
+            {
+                ItemsPerPage = itemsPerPage,
+                PageNumber = id,
+                JobsCount = this.jobsService.GetCount(),
+                Jobs = this.jobsService.GetAllMyWorks<JobInListViewModel>(1, userId),
+            };
+
+            return this.View(viewModel);
+        }
+
         public IActionResult SingleJob(int id)
         {
             var job = this.jobsService.GetById<SingleJobViewModel>(id);
 
             return this.View(job);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.jobsService.DeleteAsync(id);
+            return this.RedirectToAction(nameof(this.AllMy));
         }
     }
 }
