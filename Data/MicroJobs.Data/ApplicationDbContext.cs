@@ -106,6 +106,21 @@
                 .HasMany(x => x.Votes)
                 .WithOne(x => x.Job)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Worker>()
+              .HasMany(x => x.WorkerImages)
+              .WithOne(x => x.Worker)
+              .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Worker>()
+                .HasMany(x => x.WorkerVotes)
+                .WithOne(x => x.Worker)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Worker>()
+                .HasMany(x => x.Skills)
+                .WithOne(x => x.Worker)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)

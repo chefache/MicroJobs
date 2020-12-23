@@ -18,7 +18,7 @@
 
         Task UpdateAsync(int id, EditJobInputModel input);
 
-        IEnumerable<T> GetAllMyWorks<T>(int page, string userId, int itemsPerPage = 12);
+        IEnumerable<T> GetAllMyJobs<T>(int page, string userId, int itemsPerPage = 12);
 
         Task DeleteAsync(int id);
     }

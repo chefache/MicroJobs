@@ -44,10 +44,6 @@
         [HttpPost]
         public async Task<IActionResult> Edit(int id, EditJobInputModel job)
         {
-            // var user = await this.userManager.GetUserAsync(this.User);
-
-            // if (user.Jobs.Any(x => x.Id == job.Id))
-
             if (!this.ModelState.IsValid)
             {
                 return this.View();
@@ -122,7 +118,7 @@
                 ItemsPerPage = itemsPerPage,
                 PageNumber = id,
                 JobsCount = this.jobsService.GetCount(),
-                Jobs = this.jobsService.GetAllMyWorks<JobInListViewModel>(1, userId),
+                Jobs = this.jobsService.GetAllMyJobs<JobInListViewModel>(1, userId),
             };
 
             return this.View(viewModel);

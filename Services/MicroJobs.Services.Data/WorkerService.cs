@@ -94,6 +94,17 @@
             return workers;
         }
 
+        public IEnumerable<T> GetAllMyWorkers<T>(int page, string userId, int itemsPerPage = 2)
+        {
+            var worker = this.workersRepository.AllAsNoTracking()
+              .Where(x => x.User.Id == userId)
+              .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+              .To<T>()
+              .ToList();
+
+            return worker;
+        }
+
         public T GetById<T>(int id)
         {
             var worker = this.workersRepository.AllAsNoTracking()
@@ -105,6 +116,30 @@
         public int GetCount()
         {
             return this.workersRepository.All().Count();
+        }
+
+        public async Task UpdateAsync(int id, EditWorkerInputModel input)
+        {
+            var worker = this.workersRepository
+                .All()
+                .FirstOrDefault(x => x.Id == id);
+
+            worker.FirstName = input.FirstName;
+            worker.LastName = input.LastName;
+            worker.Town = input.Town;
+            worker.PhoneNumber = input.PhoneNumber;
+            worker.Email = input.Email;
+            worker.AboutMe = input.AboutMe;
+
+            await this.workersRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var worker = this.workersRepository.All()
+                            .FirstOrDefault(x => x.Id == id);
+            this.workersRepository.Delete(worker);
+            await this.workersRepository.SaveChangesAsync();
         }
     }
 }

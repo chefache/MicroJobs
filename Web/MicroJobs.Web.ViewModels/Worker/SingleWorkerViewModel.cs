@@ -40,6 +40,12 @@
                     x.WorkerImages.FirstOrDefault().RemoteImageUrl != null ?
                     x.WorkerImages.FirstOrDefault().RemoteImageUrl :
                     "/images/workers/" + x.WorkerImages.FirstOrDefault().Id + "." + x.WorkerImages.FirstOrDefault().Extension));
+
+            configuration.CreateMap<WorkerSkill, WorkerSkillInputModel>()
+                .ForMember(x => x.SkillName, opt =>
+                opt.MapFrom(x => x.Skill.Name));
+
+
         }
     }
 }

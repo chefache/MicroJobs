@@ -86,17 +86,17 @@
            var jobs = this.jobsRepository.AllAsNoTracking()
                 .OrderByDescending(x => x.Id)
                 .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                .Take(itemsPerPage)
                 .To<Т>()
                 .ToList();
 
            return jobs;
         }
 
-        public IEnumerable<T> GetAllMyWorks<T>(int page, string userId, int itemsPerPage = 12)
+        public IEnumerable<T> GetAllMyJobs<T>(int page, string userId, int itemsPerPage = 12)
         {
 
             var jobs = this.jobsRepository.AllAsNoTracking()
-               .OrderByDescending(x => x.Id)
                .Where(x => x.User.Id == userId)
                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                .To<T>()

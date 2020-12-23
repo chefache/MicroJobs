@@ -10,10 +10,14 @@
     public class HomeController : BaseController
     {
         private readonly IHomePageCountsService homePageCountsService;
+        private readonly IWorkerService workerService;
 
-        public HomeController(IHomePageCountsService homePageCountsService)
+        public HomeController(
+            IHomePageCountsService homePageCountsService,
+            IWorkerService workerService)
         {
             this.homePageCountsService = homePageCountsService;
+            this.workerService = workerService;
         }
 
         public IActionResult Index()

@@ -14,5 +14,11 @@
         int GetCount();
 
         T GetById<T>(int id);
+
+        Task UpdateAsync(int id, EditWorkerInputModel input);
+
+        IEnumerable<T> GetAllMyWorkers<T>(int page, string userId, int itemsPerPage = 12);
+
+        Task DeleteAsync(int id);
     }
 }

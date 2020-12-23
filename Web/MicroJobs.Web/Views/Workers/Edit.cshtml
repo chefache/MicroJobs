@@ -1,0 +1,53 @@
+﻿@using MicroJobs.Web.ViewModels.Worker
+
+@model EditWorkerInputModel
+
+@{
+    ViewData["Title"] = "Редактирай моя профил";
+}
+<h1> @ViewData["Title"]</h1>
+
+<form method="post">
+
+    <div class="form-group">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Town "></label>
+        <select asp-for="Town" class="form-control" asp-items="@Html.GetEnumSelectList
+                <MicroJobs.Data.Models.Enums.Town>()">
+        </select>
+        <span asp-validation-for="Town" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNumber"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AboutMe"></label>
+        <textarea rows="6" asp-for="AboutMe" class="form-control"></textarea>
+        <span asp-validation-for="AboutMe" class="text-danger"></span>
+    </div>
+
+    <hr />
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" class="btn btn-success" value="Редактирай" />
+</form>
